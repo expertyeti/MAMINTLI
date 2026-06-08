@@ -1,0 +1,18 @@
+/* Estilos globales y reseteos básicos */
+body {
+    background-color: #dbf6ff;
+    margin: 20px;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    overflow-x: hidden; 
+}
+
+@media (max-width: 768px) {
+    body {
+        margin: 0;
+        /* Incrementamos de 70px a 100px para compensar la nueva separación del nav flotante */
+        padding-top: 100px; 
+    }
+}

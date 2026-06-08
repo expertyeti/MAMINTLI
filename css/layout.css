@@ -1,0 +1,16 @@
+/* Estructura general de las columnas (Main y contenido) */
+#main {
+    background-color: transparent;
+    display: flex; 
+    margin-top: 50px; 
+    gap: 30px; 
+}
+
+@media (max-width: 768px) {
+    #main {
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 20px;
+        padding: 0 15px 20px 15px; 
+    }
+}

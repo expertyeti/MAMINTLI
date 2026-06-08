@@ -1,0 +1,121 @@
+/* Barra lateral y su menú interactivo en móvil */
+aside {
+    background-color: transparent;
+    width: 270px; 
+    flex-shrink: 0; 
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+    
+    /* -------------------------------------------------- */
+    /* NUEVOS CAMBIOS: EFECTO FLOTANTE / STICKY EN PC     */
+    /* -------------------------------------------------- */
+    position: sticky;
+    top: 20px;               /* Distancia que se mantendrá del borde superior al scrollear */
+    align-self: flex-start;  /* Evita que el aside se estire y permite que flote con el scroll */
+}
+
+.aside-box {
+    background-color: #97c5c9; 
+    padding: 25px;
+    border-radius: 20px; 
+    color: #1a3644; 
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.6;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-bottom: 10px; 
+}
+
+.side-pill {
+    background-color: #ffffff; 
+    color: #3c6d85; 
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none; 
+}
+
+.side-pill:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.side-pill i {
+    font-size: 18px;
+    width: 20px; 
+    text-align: center;
+}
+
+.social-divider {
+    height: 2px;
+    background-color: rgba(60, 109, 133, 0.1);
+    margin: 5px 15px;
+    border-radius: 2px;
+}
+
+.close-btn { display: none; }
+
+.overlay {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 999;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    aside {
+        /* En móviles se cambia automáticamente a fixed para el menú desplegable, */
+        /* anulando el comportamiento sticky de PC de forma limpia. */
+        position: fixed;
+        top: 0;
+        left: -100%; 
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        background-color: #dbf6ff; 
+        z-index: 1001; 
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto; 
+        transition: left 0.3s ease-in-out;
+        margin: 0;
+        align-self: auto; 
+    }
+    aside.active { left: 0; }
+    
+    .close-btn {
+        display: block;
+        align-self: flex-end; 
+        background: none;
+        border: none;
+        color: #3c6d85;
+        font-size: 28px;
+        cursor: pointer;
+        margin-bottom: 15px;
+        padding: 0;
+    }
+}

@@ -1,0 +1,61 @@
+/* Navegación superior (solo visible en móviles) */
+.mobile-nav {
+    display: none; 
+}
+
+@media (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        /* Separación del top y los lados para efecto flotante */
+        top: 15px; 
+        left: 15px;
+        width: calc(100% - 30px);
+        height: 70px;
+        
+        /* Color de fondo original con opacidad al 0.1 */
+        background-color: rgba(60, 109, 133, 0.1); 
+        
+        /* Efecto de blur (desenfoque) para el fondo */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px); /* Soporte para Safari */
+        
+        /* Bordes redondeados y un poco de sombra */
+        border-radius: 20px; 
+        border: 1px solid rgba(255, 255, 255, 0.4); /* Opcional: un borde sutil para destacar el cristal */
+        z-index: 1000;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .mobile-nav h1 {
+        margin: 0;
+        /* Cambiado a tu color oscuro para contraste sobre fondo transparente */
+        color: #3c6d85; 
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .menu-btn {
+        background: none;
+        border: none;
+        /* Cambiado a color oscuro para que sea visible */
+        color: #3c6d85; 
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-spacer {
+        width: 24px; 
+    }
+}
