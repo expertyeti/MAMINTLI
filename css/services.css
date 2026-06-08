@@ -11,7 +11,6 @@
     box-sizing: border-box;
 }
 
-/* Contenedor del botón superior */
 .view-toggle-container {
     width: 100%;
     display: flex;
@@ -43,7 +42,6 @@
     transform: translateY(-2px);
 }
 
-/* Animaciones suaves al cambiar de vista */
 #inicio-view, #galeria-view {
     animation: fadeIn 0.4s ease-in-out;
 }
@@ -53,7 +51,6 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Configuración de la vista de inicio */
 #inicio-view {
     display: flex;
     flex-direction: column;
@@ -104,10 +101,10 @@
 .service-card li:last-child { margin-bottom: 0; }
 
 /* -------------------------------------- */
-/* ESTILOS DE GALERÍA (MASONRY/PINTEREST) */
+/* ESTILOS DE GALERÍA Y SKELETONS         */
 /* -------------------------------------- */
 .masonry-grid {
-    column-count: 3; /* Número de columnas en PC */
+    column-count: 3; 
     column-gap: 20px;
     width: 100%;
 }
@@ -121,38 +118,57 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     display: inline-block; 
     width: 100%;
+    position: relative; /* Para la animación */
+}
+
+/* Animación del esqueleto mientras carga */
+.masonry-item.skeleton {
+    min-height: 250px; /* Le damos altura mientras la imagen no aparece */
+    background: linear-gradient(90deg, #b8dbe2 25%, #dbf6ff 50%, #b8dbe2 75%);
+    background-size: 200% 100%;
+    animation: loadingSkeleton 1.5s infinite;
+}
+
+@keyframes loadingSkeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .masonry-item img, .masonry-item video {
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.3s ease;
+    /* Suavizamos la transición cuando cambian de opacity 0 a 1 */
+    transition: transform 0.3s ease, opacity 0.5s ease-in-out; 
 }
 
-.masonry-item:hover img, .masonry-item:hover video {
+.masonry-item:not(.skeleton):hover img, .masonry-item:not(.skeleton):hover video {
     transform: scale(1.03); 
 }
 
 /* MEDIA QUERIES */
 @media (max-width: 992px) {
     .content-area { padding: 30px; }
-    .masonry-grid { column-count: 2; } /* 2 Columnas en tablets */
+    .masonry-grid { column-count: 2; } 
 }
 
 @media (max-width: 768px) {
-    /* Botón alineado a la izquierda en móviles */
     .view-toggle-container {
         justify-content: flex-start; 
     }
     
     .masonry-grid { 
-        column-count: 2; /* Cambiado a 2 columnas como mínimo en móviles */
-        column-gap: 12px; /* Espacio reducido para que quepa mejor en pantallas estrechas */
+        column-count: 2; 
+        column-gap: 12px; 
     }
     
     .masonry-item {
-        margin-bottom: 12px; /* Margen inferior ajustado para concordar con las columnas */
+        margin-bottom: 12px; 
+    }
+    
+    /* En móviles podemos hacer el esqueleto un poco más bajo por defecto */
+    .masonry-item.skeleton {
+        min-height: 180px; 
     }
 
     .content-area {

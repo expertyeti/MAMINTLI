@@ -155,7 +155,6 @@
     </div>
 
     <script>
-        // --- 1. Lógica del Menú Móvil Lateral ---
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
         const asideMenu = document.getElementById('aside-menu');
@@ -168,10 +167,7 @@
         closeBtn.addEventListener('click', closeMenu);
         overlay.addEventListener('click', closeMenu); 
 
-        // --- 2. Lógica de la Galería y Cambio de Vistas ---
-        
         // 🔹 MODIFICA ESTE ARRAY: Agrega los nombres exactos de tus archivos con extensión.
-        // Asegúrate de tener una carpeta llamada "galeria" en la misma ruta que tu index.html
         const galeriaArchivos = [
             'source (1).jpg',
             'source (2).jpg',
@@ -207,18 +203,17 @@
         const masonryGrid = document.getElementById('masonry-grid');
         let galeriaCargada = false;
 
-        // Identificador de videos
         function esVideo(archivo) {
             const ext = archivo.split('.').pop().toLowerCase();
             return ['mp4', 'webm', 'ogg', 'mov'].includes(ext);
         }
 
-        // Renderizado del Masonry Layout
         function cargarGaleria() {
             masonryGrid.innerHTML = ''; 
             galeriaArchivos.forEach(archivo => {
                 const item = document.createElement('div');
-                item.className = 'masonry-item';
+                // Añadimos la clase skeleton inicialmente
+                item.className = 'masonry-item skeleton';
                 
                 const ruta = `galeria/${archivo}`;
                 
@@ -227,14 +222,32 @@
                     video.src = ruta;
                     video.autoplay = true;
                     video.loop = true;
-                    video.muted = true; // Requisito: Sin sonido
-                    video.playsInline = true; // Previene pantalla completa en móviles
+                    video.muted = true; 
+                    video.playsInline = true; 
+                    // Oculto mientras carga
+                    video.style.opacity = '0';
+                    
+                    // Cuando el video carga suficientes datos para mostrar el primer frame
+                    video.addEventListener('loadeddata', () => {
+                        item.classList.remove('skeleton');
+                        video.style.opacity = '1';
+                    });
+                    
                     item.appendChild(video);
                 } else {
                     const img = document.createElement('img');
                     img.src = ruta;
                     img.alt = "MAMINTLI Galería";
                     img.loading = "lazy";
+                    // Oculto mientras carga
+                    img.style.opacity = '0';
+                    
+                    // Cuando la imagen termina de descargar
+                    img.onload = () => {
+                        item.classList.remove('skeleton');
+                        img.style.opacity = '1';
+                    };
+                    
                     item.appendChild(img);
                 }
                 
@@ -243,16 +256,13 @@
             galeriaCargada = true;
         }
 
-        // Evento del botón
         toggleBtn.addEventListener('click', () => {
             if (inicioView.style.display !== 'none') {
-                // Ir a galería
                 inicioView.style.display = 'none';
                 galeriaView.style.display = 'block';
                 toggleBtn.innerHTML = '<i class="fa-solid fa-house"></i> Volver a Inicio';
                 if (!galeriaCargada) cargarGaleria();
             } else {
-                // Volver a inicio
                 galeriaView.style.display = 'none';
                 inicioView.style.display = 'flex'; 
                 toggleBtn.innerHTML = 'Ver Galería <i class="fa-solid fa-images"></i>';
